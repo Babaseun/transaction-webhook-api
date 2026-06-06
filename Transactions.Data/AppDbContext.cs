@@ -11,8 +11,11 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Transaction>()
-            .HasIndex(t => t.ExternalTransactionId)
-            .IsUnique(); 
+        var transaction = modelBuilder.Entity<Transaction>();
+
+        transaction.HasIndex(t => t.ExternalTransactionId)
+            .IsUnique();
+
+        transaction.Property(t => t.Amount).HasPrecision(18, 2);
     }
 }
